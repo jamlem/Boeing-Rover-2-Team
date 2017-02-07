@@ -10,5 +10,5 @@ arduino - For code developed on the arduino, as a low-level hardware interface.
 
 Programmers and contact info (add yours!):
 
-Jeremy Lim: jeremyjlim4@gmail.com (or jvl5727@psu.edu)
+Jeremy Lim: jvl5727@psu.edu
 
