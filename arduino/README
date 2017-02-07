@@ -1,0 +1,7 @@
+This is the directory for all code/resources for developing the low-level Arduino-Raspberry Pi interface.
+
+Target: Arduino Nano
+
+Language: C++
+
+Dependencies: Arduino Standard library (Arduino.h)
