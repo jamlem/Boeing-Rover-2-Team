@@ -3,25 +3,3 @@ This is the directory for all code/resources for developing the client interface
 Language: C#/Python? (clarification?)
 
 Dependencies: None
-
-
-** Client Information **
-
-The client will be created in C# which will connect to the raspberry pi through its SSH protocol.
-
-The SSH protocol allows for remote control of the terminal within the rapsberry pi. The client
-will therefore be able to do the following:
-
-1) run custom terminal commands through the protocol
-2) Be able to remotely run scripts/tasks for the raspbery to perform (in this case scripts)
-3) allow for remote control over the internet.
-
-The client will send commands to the terminal of the raspberry pi that were given by the user.
-These commands can be as simple as a "sh move-forward.sh" command which will run a shell script
-that has already been predefined.
-
-The client is still heavily under development and any suggestions or concerns will be noted.
-
-Please feel free to contact me regarding this method.
-
-Wade Martin: wademartin909@gmail.com
