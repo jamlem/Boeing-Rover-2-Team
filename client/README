@@ -1,6 +1,6 @@
 This is the directory for all code/resources for developing the client interface for controlling the rover
 
-Language: C#/Python? (clarification?)
+Language: C#
 
 Dependencies: None
 
@@ -19,6 +19,14 @@ will therefore be able to do the following:
 The client will send commands to the terminal of the raspberry pi that were given by the user.
 These commands can be as simple as a "sh move-forward.sh" command which will run a shell script
 that has already been predefined.
+
+There will be two primary forms of control for the user to utilise. they are namely:
+
+1) Through Xbox controller
+2) Keyboard input
+
+Intergration of the raspberry camera will be streamed directly onto the client interface. This is
+still currently under developement and should be completed by 22/02
 
 The client is still heavily under development and any suggestions or concerns will be noted.
 
