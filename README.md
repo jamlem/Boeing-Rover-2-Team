@@ -13,3 +13,5 @@ Programmers and contact info (add yours!):
 Jeremy Lim: jvl5727@psu.edu
 
 Jason van Heerden: vheerden.jason@gmail.com
+
+Wade Martin: wademartin909@gmail.com
