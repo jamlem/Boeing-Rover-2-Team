@@ -5,3 +5,115 @@ Target: Arduino Nano
 Language: C++
 
 Dependencies: Arduino Standard library (Arduino.h)
+
+
+Arduino Communication Protocol:
+
+The interface we will be using is the built-in UART Serial interface. Arduinos usually have a secondary processor
+dedicated to reading the built-in serial port, so we can avoid interrupt issues with a software-based solution.
+
+According to my research, Arduino is Full-Duplex (both sides can send data at the same time)
+
+Connection 9600 Baud, 8N1
+
+Arduino to Raspberry Pi (status updates)
+
+The arduino will send a message to the Raspberry pi about every 10 ms. This may change as capabilities are added/removed from the arduino. Bytes:
+
+0: |0x32|  //Magic number. Is an arbitrary number that both systems agree on. (I just chose 0x32 arbitrarily)
+1: |...|   //First byte of a float representing the velocity of the front right wheel. Network Byte order (Big Endian)
+2: |...|   //Part of 1st float
+3: |...|   //Part of 1st float
+4: |...|   //Part of 1st float
+5: |...|   //First byte of a float representing the velocity of the front left wheel. Network Byte order (Big Endian)
+6: |...|   //Part of 2nd float
+7: |...|   //Part of 2nd float
+8: |...|   //Part of 2nd float
+9: |...|   //First byte of a float representing the velocity of the back right wheel. Network Byte order (Big Endian)
+10:|...|   //Part of 3rd float
+11:|...|   //Part of 3rd float
+12:|...|   //Part of 3rd float
+13:|...|   //First byte of a float representing the velocity of the back left wheel. Network Byte order (Big Endian)
+14:|...|   //Part of 4th float
+15:|...|   //Part of 4th float
+16:|...|   //Part of 4th float
+17:|...|   //First byte of a float representing the current angular velocity of the Rover. Network Byte order (Big Endian)
+18:|...|   //Part of 5th float
+19:|...|   //Part of 5th float
+20:|...|   //Part of 5th float
+21:|...|   //First byte of a float representing the calculated X displacement, from arduino power-on. This is using wheel odometry.
+22:|...|   //Part of 6th float
+23:|...|   //Part of 6th float
+24:|...|   //Part of 6th float
+25:|...|   //First byte of a float representing the calculated Y displacement, from arduino power-on. This is using wheel odometry.
+26:|...|   //Part of 7th float
+27:|...|   //Part of 7th float
+28:|...|   //Part of 7th float
+29:|...|   //First byte of a float representing the calculated angular displacement, from arduino power-on. This is using wheel odometry.
+30:|...|   //Part of 8th float
+31:|...|   //Part of 8th float
+32:|...|   //Part of 8th float
+33:|...|   //Arduino Status byte. We'll use this bytes for the arduino to report general status info.
+
+Status byte bit assignments:
+Key: (U for unused)
+ERR:  General error bit. Use if something is fundamentally wrong...
+(high order -> low order)
+-----------------------------------------
+|U   |U   |U   |U   |U   |U   |U   |ERR |
+-----------------------------------------
+
+
+Raspberry Pi to Arduino (Commands)
+These can be sent independently of the arduino status commands
+
+For now, there are 3 different commands the raspi can send to the arduino:
+
+1) assign motor speeds:
+0: |0x32|  //Magic number. Is an arbitrary number that both systems agree on.
+1: |0x00|  //Command type. 0 for assigning speeds for all four motors.
+2: |...|   //First byte of a float representing the velocity of the front right wheel. Network Byte order (Big Endian)
+3: |...|   //Part of 1st float
+4: |...|   //Part of 1st float
+5: |...|   //Part of 1st float
+6: |...|   //First byte of a float representing the velocity of the front left wheel. Network Byte order (Big Endian)
+7: |...|   //Part of 2nd float
+8: |...|   //Part of 2nd float
+9: |...|   //Part of 2nd float
+10:|...|   //First byte of a float representing the velocity of the back right wheel. Network Byte order (Big Endian)
+11:|...|   //Part of 3rd float
+12:|...|   //Part of 3rd float
+13:|...|   //Part of 3rd float
+14:|...|   //First byte of a float representing the velocity of the back left wheel. Network Byte order (Big Endian)
+15:|...|   //Part of 4th float
+16:|...|   //Part of 4th float
+17:|...|   //Part of 4th float
+
+2) assign drive velocity & angular velocity
+0: |0x32|  //Magic number. Is an arbitrary number that both systems agree on.
+1: |0x01|  //Command type. 1 for assigning the controller a drive velocity and an angular velocity to attempt to create.
+2: |...|   //First byte of a float representing the forward/backward velocity. (Big Endian)
+3: |...|   //Part of 1st float
+4: |...|   //Part of 1st float
+5: |...|   //Part of 1st float
+6: |...|   //First byte of a float representing the angular velocity of the rover. (Big Endian)
+7: |...|   //Part of 2nd float
+8: |...|   //Part of 2nd float
+9: |...|   //Part of 2nd float
+
+3) toggle controls. Here is where we'll control raising/lowering the scoop mechanism, and anything else that is "toggled"
+0: |0x32|  //Magic number. Is an arbitrary number that both systems agree on.
+1: |0x02|  //Command type. 2 for assigning the toggle control bytes.
+2: |...|   //Toggle control byte 1. See below chart for assignments.
+
+Toggle bytes bit assignments:
+Key: (U for unused)
+LIFT: lift up the scoop if 1, otherwise, it should be lowered.
+(high order -> low order)
+-----------------------------------------
+|LIFT|U   |U   |U   |U   |U   |U   |U   |
+-----------------------------------------
+
+4) E-stop. If the arduino recieves this message, it will stop all actuators it is connected to.
+0: |0x32|  //Magic number. Is an arbitrary number that both systems agree on.
+1: |0x03|  //Command type. 3 for E-Stop.
