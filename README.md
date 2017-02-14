@@ -15,3 +15,5 @@ Jeremy Lim: jvl5727@psu.edu
 Jason van Heerden: vheerden.jason@gmail.com
 
 Wade Martin: wademartin909@gmail.com
+
+Thabo Tsotetsi: tsotetsithabo36@gmail.com
