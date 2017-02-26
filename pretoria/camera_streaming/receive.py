@@ -33,7 +33,7 @@ while True:
     # 1) Make sure the format ("RGB" in this case) is the same format of the image that was sent.
     # Might not be true for the Pi Camera though
     # 2) Make sure that the resolution of the image is the same.
-    image_recv = Image.frombytes('RGB', (640, 480), image_data)
+    image_recv = Image.frombytes('RGB', (384, 384), image_data)
     # Converts the PIL image ("image_recv") to a numpy array, so it can be interpreted by the Open CV module.
     img_cv = numpy.array(image_recv)
 
