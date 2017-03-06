@@ -1,0 +1,36 @@
+// this code is used specifically for allowing camera feed over a LAN. This is changed when trying to access it over the internet.
+
+            Process cmdPrompt = new Process(); // creates a process that will run
+            //cmdPrompt.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+            cmdPrompt.StartInfo.FileName = @"cmd.exe"; // gives information for the process you declare, in this case we open command prompt
+
+
+            cmdPrompt.StartInfo.Arguments = @"/K C:\MarsRover\nc64.exe -l -p 5133 | C:\MarsRover\mplayer.exe -fps 60 -demuxer h264es -wid " + id + " -"; // id refers to the handle of the panel while the rest of the command is the statment to start netcat and mplayer in order to recieve the feed
+
+            cmdPrompt.StartInfo.CreateNoWindow = true;
+
+            cmdPrompt.Start(); // starts the process
+// this is used to gte your specific ip address
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            string ipAddress = null;
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    ipAddress = ip.ToString();
+                }
+            }
+//
+            StringBuilder userInput = new StringBuilder();
+
+            userInput.Append("raspivid -vf -n -w 800 -h 400 -o - -t 0 -b 2000000 | nc " + ipAddress + " 5133"); //command send to raspberry pi in order to notify it to start recording and sending the feed to the client
+            using (var cmd = client.CreateCommand(userInput.ToString()))
+            {
+                
+                    var results = cmd.Execute(); // runs the command on the raspberry pi
+
+
+                    //rchConsoleView.AppendText(results);
+            }
+            userInput.Clear();
