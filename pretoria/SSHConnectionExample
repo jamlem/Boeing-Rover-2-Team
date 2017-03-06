@@ -1,0 +1,66 @@
+            //the following is an example on how we would connect to the device by giving it a ip,port,username and password that will use Renci.SSH which is a
+            // ssh library for c#.
+            //
+            //
+            // Normal asychronus sockets will connect to other ports that will send and recieve data from the raspberry pi
+            
+            
+            
+            if (txtIP.Text == "" || txtIP.Text == null || txtUser.Text == "" || txtUser.Text == null || txtPassword.Text == "" || txtPassword.Text == null) //makes sure all fields are filled in order to process the connection information
+            { // if statement checks if everything is filled
+                MessageBox.Show("Please enter all credentials");
+                
+            }
+            else
+            {
+
+                if (rnbLan.Checked) //checks if the "LAN" radio button is checked
+                {
+                    string[] ipSubString = txtIP.Text.Split('.'); // creates a string array of the ip address for each octet
+                    bool allInts = true; // establishes a bool that will remain true if all the octets are comprised of digits
+                    for (int i = 0; i < 4; i++) // for loop for the duration of the substrings
+                    {
+                        bool allCharactersInStringAreDigits = ipSubString[i].All(char.IsDigit); //checks if substring is just numbers
+
+                        if (!allCharactersInStringAreDigits) // if it isnt it will set "allInts" to false
+                        {
+                            allInts = false;
+                            break; // breaks the for loop since we dont need to condition
+                        }
+                    }
+
+                    if (allInts) 
+                    {
+
+                        SshClient sshClient = connectionClass.sshConnectionInformation(txtIP.Text, 22, txtUser.Text, txtPassword.Text); //creates connection for the ssh protocol to the client
+                        if (sshClient != null) // checks if the sshClient isnt null
+                        {
+                            Form1 form = new Form1(sshClient,true);
+                            form.Show();
+                            this.Hide();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to establish connection");
+                    }
+
+                }
+                else
+                {
+                    SshClient sshClient = connectionClass.sshConnectionInformation(txtIP.Text, 22, txtUser.Text, txtPassword.Text); // creates the connection for the internet connection
+                    if (sshClient != null) //change port number to something from the internet
+                    {
+                        Form1 form = new Form1(sshClient,false);
+                        form.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to establish connection");
+                    }
+
+
+                }
+
+            }
