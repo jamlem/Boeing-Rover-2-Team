@@ -1,0 +1,11 @@
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Newtonsoft.Json.xml
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\obj\Debug\CLient.csprojResolveAssemblyReference.cache
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\van Heerden\Desktop\_Projects\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\van Heerden\Desktop\_Projects\Client_Test\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\van Heerden\Desktop\_Projects\Client_Test\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\van Heerden\Desktop\_Projects\Client_Test\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
