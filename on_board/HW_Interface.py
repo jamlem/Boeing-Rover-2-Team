@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 #Jeremy Lim
-#3/7/17
+#3/20/17
 #A python class used to set manage serial connections & issue commands
 #to the rover's arduino and servo controller for actuator control.
 
@@ -97,7 +97,7 @@ class HW_Interface:
             turnRadius = self.chassis_wheel_length*tan(math.pi/2.0 + self.steer_angle/180.0*math.pi)
             if self.steer_angle > 0.0:
                 turnRadius = -self.chassis_wheel_length*tan(math.pi/2.0 + self.steer_angle/180.0*math.pi)
-            else self.steer_angle < 0.0:
+            elif self.steer_angle < 0.0:
                 turnRadius = self.chassis_wheel_length*tan(math.pi/2.0 + self.steer_angle/180.0*math.pi)
             #find the desired angular velocity
             omega = in_velocity/turnRadius
@@ -145,7 +145,7 @@ class HW_Interface:
             else:
                 #Might've gotten a message halfway. Throuw
                 is_Valid = False
-        else
+        else:
             batteryVoltage, xPosition, yPosition, heading, leftVelocity, rightVelocity, IR_heading, IR_elevation = 0.0
             is_Valid = False
 
@@ -153,7 +153,7 @@ class HW_Interface:
         return is_Valid, batteryVoltage, xPosition, yPosition, heading, leftVelocity, rightVelocity, IR_heading, IR_elevation
 
     #Check system state for errors
-    def pollHealthStatus(self):
+    #def pollHealthStatus(self):
         #TODO: define error states for this class!
         #undefined for now.
     #HELPER METHODS--------------------------------
@@ -185,21 +185,24 @@ class HW_Interface:
             #Servo 3: Hopper Claw servo 2
             steer_conversion = in_steerServo/90.0*(self.servo_max-self.servo_mid) + self.servo_mid
 
-            commandBytes.append(getDutyCycle(steer_conversion))
+            #list composition.
+            commandBytes += getDutyCycle(steer_conversion)
 
             if in_hopper_up:#true for lifted hopper
-                commandBytes.append(getDutyCycle(self.hopper_up_micros))
+                commandBytes += getDutyCycle(self.hopper_up_micros)
             else:
-                commandBytes.append(getDutyCycle(self.hopper_down_micros))
+                commandBytes += getDutyCycle(self.hopper_down_micros)
 
             if in_hopper_grasp:#true for closed grasper
-                commandBytes.append(getDutyCycle(self.hopper_close_micros))#these duty cycles will need adjustment.
-                commandBytes.append(getDutyCycle(self.hopper_close_micros))#these duty cycles will need adjustment.
+                commandBytes += getDutyCycle(self.hopper_close_micros)#these duty cycles will need adjustment.
+                commandBytes += getDutyCycle(self.hopper_close_micros)#these duty cycles will need adjustment.
             else:
-                commandBytes.append(getDutyCycle(self.hopper_open_micros))#these duty cycles will need adjustment.
-                commandBytes.append(getDutyCycle(self.hopper_open_micros))#these duty cycles will need adjustment.
+                commandBytes += getDutyCycle(self.hopper_open_micros)#these duty cycles will need adjustment.
+                commandBytes += getDutyCycle(self.hopper_open_micros)#these duty cycles will need adjustment.
 
-            self.pololu.write(commandBytes)
+
+            writeBytes = bytearray(np.array(commandBytes))
+            self.pololu.write(writeBytes)
 
             return True#True for success
         else:
@@ -212,17 +215,17 @@ class HW_Interface:
             commandBytes.append(np.int8(0x32))#magic number
             if in_stop_flag:
                 commandBytes.append(np.int8(0x2))#E-stop command.
-                self.arduino.write(commandBytes)
             elif in_reset_odometry_flag:
                 commandBytes.append(np.int8(0x1))#Signal to reset odometry.
-                self.arduino.write(commandBytes)
             else:
                 leftFloat = socket.htonl(np.float32(in_left_mot))#using network byte order for transmission; keep consistency.
                 rightFloat = socket.htonl(np.float32(in_right_mot))
                 commandBytes.append(np.int8(0x0))#Signal for motor control.
                 commandBytes.append(rightFloat)
                 commandBytes.append(leftFloat)
-                self.arduino.write(commandBytes)
+
+            writeBytes = bytearray(np.array(commandBytes))
+            self.arduino.write(writeBytes)
             return True
-        else
+        else:
             return False
