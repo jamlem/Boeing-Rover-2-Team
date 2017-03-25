@@ -6,6 +6,7 @@
 
 #define MAGIC_NUM 0x32  //Used as the first byte of every valid message.
 
+
 //pin assignments
 
 #define BATTERY_PIN A0  //analog pin used to read battery voltage.
@@ -14,6 +15,9 @@
 //Encoder 2: 9 and 4
 //Encoder 3: 10 and 5
 //Encoder 4: 11 and 6
+
+//Program frequency
+const float prog_delay = 
 
 //Encoder counts
 volatile long enc1;
