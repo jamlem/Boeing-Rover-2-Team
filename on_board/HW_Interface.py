@@ -81,10 +81,23 @@ class HW_Interface:
 
     # Stop the movement of all actuators & motors on the rover.
     # takes the form of a special flag command to the arduino.
-    def send_all_stop(self):
+    # For emergency stop.
+    def send_emergency_stop(self):
         self.left_motor  = 0.0
         self.right_motor = 0.0
-        return self.send_arduino_command(True, self.left_motor, self.right_motor, False)
+        self.send_arduino_command(True, self.left_motor, self.right_motor, False)
+
+    # Stop the movement of all actuators & motors on the rover.
+    # Reset the hopper to the up position.
+    # for regular reset (not emergencys!)
+    def send_stop(self):
+        self.left_motor  = 0.0
+        self.right_motor = 0.0
+        # Do not send the e-stop flag.
+        self.send_arduino_command(False, self.left_motor, self.right_motor, False)
+        # reset hopper to the up and closed position.
+        # steering is reset to straight ahead.
+        send_pololu_command(0.0, True, True)
 
     # Designate the state of the rover to be sent to the low-level hardware.
     #  Float, Float, Bool, Bool
