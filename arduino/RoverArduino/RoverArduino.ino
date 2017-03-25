@@ -17,7 +17,8 @@
 //Encoder 4: 11 and 6
 
 //Program frequency
-const float prog_delay = 
+//Fraction of a second.
+const float prog_delay = 0.01;//10 ms period currently.
 
 //Encoder counts
 volatile long enc1;
@@ -59,7 +60,7 @@ float commandLeft;
 float commandRight;
 
 //Physical constants
-const float batteryVoltageConversion = 1.0//Arbitrary for now.
+const float batteryVoltageConversion = 1.0;//Arbitrary for now.
 
 void setup()
 {
@@ -177,21 +178,27 @@ ISR (PCINT0_vect)
 void loop()
 {
   
-  
-  //Update the raspberry pi on the status.
-  sendStatusUpdate();
-  
-  //Read any possible command updates.
-  //This is nearly non-blocking.
-  checkForCommand();
-  
   //Read sensors, assign motor commands.
   //Update battery voltage reading.
   batteryVoltage = analogRead(BATTERY_PIN)*batteryVoltageConversion;
   
+  //Get status from IR system.
+  //This will depend on what system we get.
   
+  //Update motor velocities.
+  //If performance issues occure, we will
+  updateMotorSpeeds(prog_delay);
+ 
+  
+  //Read any possible command updates.
+  //This is nearly non-blocking.
+  checkForCommand();
+  updateMotorCommands(commandLeft, commandRight);
+  
+ 
   //Update the raspberry pi on the status.
   //This is completely asynchronous with recieving commands.
+  //May need to decrease this frequency.
   sendStatusUpdate();
   delay(10);//Main program runs every 10ms.
 }
@@ -203,23 +210,23 @@ void sendStatusUpdate()
   //Set up our message, according to the desired format.
   sendBuffer[0] = 0x32;
   //Right wheel velocity
-  floatToBigEndian(&velocityRight,sendBuffer+1);
+  floatToBigEndian((byte*)&velocityRight,sendBuffer+1);
   //Left wheel Velocity
-  floatToBigEndian(&velocityLeft,sendBuffer+5);
+  floatToBigEndian((byte*)&velocityLeft,sendBuffer+5);
   //Calculated angular velocity
-  floatToBigEndian(&angularVelocity,sendBuffer+9);
+  floatToBigEndian((byte*)&angularVelocity,sendBuffer+9);
   //X displacement
-  floatToBigEndian(&displacementX,sendBuffer+13);
+  floatToBigEndian((byte*)&displacementX,sendBuffer+13);
   //Y displacement
-  floatToBigEndian(&displacementY,sendBuffer+17);
+  floatToBigEndian((byte*)&displacementY,sendBuffer+17);
   //Angular displacement
-  floatToBigEndian(&displacementAngular,sendBuffer+21);
+  floatToBigEndian((byte*)&displacementAngular,sendBuffer+21);
   //Battery Voltage
-  floatToBigEndian(&batteryVoltage,sendBuffer+25);
+  floatToBigEndian((byte*)&batteryVoltage,sendBuffer+25);
   //Ir Elevation
-  floatToBigEndian(&IRelevation,sendBuffer+29);
+  floatToBigEndian((byte*)&IRelevation,sendBuffer+29);
   //Ir Heading
-  floatToBigEndian(&IRheading,sendBuffer+33);
+  floatToBigEndian((byte*)&IRheading,sendBuffer+33);
   //Status byte.
   sendBuffer[37] = statusByte;
   
@@ -231,8 +238,9 @@ void sendStatusUpdate()
 //Returns the read state, to be used for subsequent command checks.
 void checkForCommand()
 {
+  byte byteBuf[8];
   //Check if anything is on the serial buffer
-  int readyBytes = Serial.avaliable();
+  int readyBytes = Serial.available();
   if (readyBytes < 2)
     return;//nothing to read.
   
@@ -245,8 +253,12 @@ void checkForCommand()
   {
     //for now, we'll block until we get the bytes we need. If performance becomes
     //and issue, this can be re-written non-blocking
-    while (Serial.avaliable() < 8);
-    
+    while (Serial.available() < 8);
+    //TODO: Read command from raspberry pi.
+    Serial.readBytes((char*)byteBuf,8);
+    //Global command vars.
+    bigEndianToFloat(&byteBuf[0],&commandRight);
+    bigEndianToFloat(&byteBuf[4],&commandLeft);
   }
   else if(current == 0x1)
   {
@@ -287,14 +299,16 @@ void floatToBigEndian(byte * numberLoc, byte * bufLoc)
   bufLoc[3] = numberLoc[0];
 }
 
-float bigEndianToFloat(byte * numberLoc)
+//Transform a float in big endian to little endian
+//so the arduino can read it.
+float bigEndianToFloat(byte * numberLoc, float* writeNum)
 {
   byte tempBuffer[4];
   //reverse byte order
-  tempBuffer[0] = numberLoc[3];
-  tempBuffer[1] = numberLoc[2];
-  tempBuffer[2] = numberLoc[1];
-  tempBuffer[3] = numberLoc[0];
+  ((byte*)writeNum)[0] = numberLoc[3];
+  ((byte*)writeNum)[1] = numberLoc[2];
+  ((byte*)writeNum)[2] = numberLoc[1];
+  ((byte*)writeNum)[3] = numberLoc[0];
   //Re-cast to float (hopefully!)
-  return (float)tempBuffer;
+  //return (float)tempBuffer;
 }

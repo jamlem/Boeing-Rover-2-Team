@@ -49,11 +49,11 @@ void updateMotorCommands(double left, double right)
   commandLeft = left;
   commandRight = right;
   
-  errorLeft =  velocityLeft - commandLeft;
-  errorRight = velocityRight - commandRight;
+  float errorLeft =  velocityLeft - commandLeft;
+  float errorRight = velocityRight - commandRight;
   
-  delErrorLeft = errorLeft - prevErrorLeft;
-  delErrorRight = errorRight - prevErrorRight;
+  float delErrorLeft = errorLeft - prevErrorLeft;
+  float delErrorRight = errorRight - prevErrorRight;
   
   //Update the integral terms
   accumulateLeft += I_const*errorLeft;
