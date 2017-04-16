@@ -26,7 +26,11 @@ while 1:
     try:
         # attempts to connect to the given address and port
         socket.connect((SERVER, PORT))
-        # print(socket.recv(4096).decode())
+        reply = socket.recv(4096).decode()
+        print("Last Rover Status : ")
+        print("==================================")
+        print(reply)
+        print("==================================")
         while 1:
             # sets a predetermined example JSON object
             json_obj = random_command()
