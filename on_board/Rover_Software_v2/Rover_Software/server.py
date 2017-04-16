@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 import sys
 
 from Handlers import file_handler as log
@@ -20,3 +22,4 @@ while 1:
         log.log_error(e)
         server.restart()
         pass
+

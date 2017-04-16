@@ -1,3 +1,84 @@
 2017-04-09 15:44:12.666051
 could not open port '/dev/ttyACM0': FileNotFoundError(2, 'The system cannot find the path specified.', None, 3)
 >
+2017-04-14 20:59:23.248050
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:23.751756
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:24.254839
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:24.758008
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:25.262211
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:25.766521
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:26.271015
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:26.776855
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:27.282024
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:27.787371
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:28.292350
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:28.797528
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:29.302621
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:29.807794
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:30.313033
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:30.818176
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:31.324363
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 20:59:31.830269
+object of type 'numpy.int8' has no len()
+>
+2017-04-14 21:28:59.006098
+global name 'WindowsError' is not defined
+>
+2017-04-14 21:29:01.253481
+global name 'WindowsError' is not defined
+>
+2017-04-14 21:29:03.265149
+global name 'WindowsError' is not defined
+>
+2017-04-14 21:29:04.825507
+global name 'WindowsError' is not defined
+>
+2017-04-14 22:03:08.784649
+global name 'WindowsError' is not defined
+>
+2017-04-14 22:03:12.629223
+global name 'WindowsError' is not defined
+>
+2017-04-14 22:05:59.625750
+global name 'WindowsError' is not defined
+>
+2017-04-16 20:07:32.107833
+global name 'WindowsError' is not defined
+>
+2017-04-16 20:07:35.549090
+global name 'WindowsError' is not defined
+>

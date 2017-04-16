@@ -22,8 +22,8 @@ class HardwareInterface:
     def __init__(self):
         self.is_open = False
         self.baudRate = 115200  # both controllers use the same baud rate
-        self.arduino_file = "/dev/ttyACM0"  # USB serial locations on the raspi.
-        self.pololu_file = "/dev/ttyACM1"  # to be updated later.
+        self.arduino_file = "/dev/ttyUSB0"  # USB serial locations on the raspi.
+        self.pololu_file = "/dev/ttyACM0"  # to be updated later.
 
         # rover state
         self.right_motor = 0.0
@@ -151,7 +151,7 @@ class HardwareInterface:
         #  wait for chip initialization
         time.sleep(0.5)
         #  start byte
-        self.pololu.write(np.int8(0xAA))
+        self.pololu.write(np.array_str(np.array(np.int8(0xAA))))
         time.sleep(0.5)
 
         self.is_open = True
