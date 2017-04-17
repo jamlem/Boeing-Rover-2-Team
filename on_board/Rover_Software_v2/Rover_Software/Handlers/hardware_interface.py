@@ -11,6 +11,7 @@ import numpy as np
 import serial
 # Used to standardize byte ordering.
 import socket
+import struct
 # for implementing delays for serial initialization.
 import time
 # Exceptions used for this class:
@@ -66,7 +67,7 @@ class HardwareInterface:
 
     def get_duty_cycle(self, in_micro_secs):
         #  Multiply by 4: the maestro operates in quarter-microseconds.
-        duty = 4 * in_micro_secs
+        duty = long(4 * in_micro_secs)
         #  we send the
         low_bits = duty & 0x007F
         high_bits = (duty >> 7) & 0x7F
@@ -121,21 +122,25 @@ class HardwareInterface:
 
     def send_arduino_command(self, in_stop_flag, in_left_mot, in_right_mot, in_reset_odometry_flag):
         if self.is_open:
-            command_bytes = []
-            command_bytes.append(np.int8(0x32))  # magic number
+            #Specifying network byte order.
+            #command_bytes = []
+            #command_bytes.append(np.int8(0x32))  # magic number
             if in_stop_flag:
-                command_bytes.append(np.int8(0x2))  # E-stop command.
+            	command_bytes = struct.pack('!bb',0x32,0x2)
+                #command_bytes.append(np.int8(0x2))  # E-stop command.
             elif in_reset_odometry_flag:
-                command_bytes.append(np.int8(0x1))  # Signal to reset odometry.
+            	command_bytes = struct.pack('!bb',0x32,0x1)
+                #command_bytes.append(np.int8(0x1))  # Signal to reset odometry.
             else:
-                left_float = socket.htonl(
-                    np.float32(in_left_mot))  # using network byte order for transmission; keep consistency.
-                right_float = socket.htonl(np.float32(in_right_mot))
-                command_bytes.append(np.int8(0x0))  # Signal for motor control.
-                command_bytes.append(right_float)
-                command_bytes.append(left_float)
+            	command_bytes = struct.pack('!bbff',0x32,0x0,in_left_mot,in_right_mot)
+                #left_float = socket.htonl(
+                    #np.float32(in_left_mot))  # using network byte order for transmission; keep consistency.
+                #right_float = socket.htonl(np.float32(in_right_mot))
+                #command_bytes.append(np.int8(0x0))  # Signal for motor control.
+                #command_bytes.append(right_float)
+                #command_bytes.append(left_float)
 
-            write_bytes = bytearray(np.array(command_bytes))
+            write_bytes = bytearray(command_bytes)
             self.arduino.write(write_bytes)
         else:
             # Raise non-open exception

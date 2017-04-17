@@ -51,26 +51,26 @@ class ServerHandler:
 
     # waits for a connection and handles requests when a client connects
     def start(self):
-        try:
+        #try:
             print(">> Waiting for connection")
             self.conn, self.address = self.socket.accept()  # accepts the incoming client request
             print('>> Connected with ' + self.address[0] + ':' + str(self.address[1]))
             self.conn.sendall(json.dumps(log.get_last_status()).encode())  # returns the last saved status to the client
             while 1:
                 # receive data from the client whilst they are still connected
-                try:
+                #try:
                     self.__receive_data()
-                except Exception as e:
+                #except Exception as e:
                     # stops the rover when an unexpected error occurs
-                    raise e
-        except WindowsError:
+                    #raise e
+        #except Exception:#Unsure what type of error; raspi is not windows!
             # displays client disconnection and passes through to attempts a reconnect
-            print(">> Disconnected from " + self.address[0] + ':' + str(self.address[1]))
-            self.rover_connection.send_stop()
-            pass
-        except Exception as e:
-            self.rover_connection.send_emergency_stop()
-            raise e
+            #print(">> Disconnected from " + self.address[0] + ':' + str(self.address[1]))
+            #self.rover_connection.send_stop()
+            #pass
+        #except Exception as e:
+            #self.rover_connection.send_emergency_stop()
+            #raise e
 
     def __handle_request(self, data):
         # creates a rover command object from incoming byte stream

@@ -1,5 +1,8 @@
+#! /usr/bin/python
+
 import json
 import socket
+import random
 
 # used to test the sending and receiving of JSON files
 
@@ -7,20 +10,21 @@ import socket
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # sets the address and port nr of the server
-SERVER = 'localhost'
+# 'localhost'
+SERVER = '127.0.0.1'
 PORT = 5555
 
 
 # creates a random command to be sent to the server
 def random_command():
-    import json
-    import random
-    return json.loads('{"MovementX": ' + str(random.randrange(0, 100)/100) + ',' +
+
+    data =  json.loads('{"MovementX": ' + str(random.randrange(0, 100)/100) + ',' +
                       '"MovementY": ' + str(random.randrange(0, 100) / 100) + ',' +
                       '"EStopStatus": ' + str(bool(random.getrandbits(1))) + ',' +
                       '"allStop": ' + str(bool(random.getrandbits(1))) + ',' +
                       '"HopperGrasp": ' + str(bool(random.getrandbits(1))) + ',' +
-                      '"HopperDown": ' + str(bool(random.getrandbits(1))) + '')
+                      '"HopperDown": ' + str(bool(random.getrandbits(1))) + '}')
+    return data
 
 while 1:
     try:

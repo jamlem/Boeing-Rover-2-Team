@@ -82,3 +82,12 @@ global name 'WindowsError' is not defined
 2017-04-16 20:07:35.549090
 global name 'WindowsError' is not defined
 >
+2017-04-16 21:05:34.000128
+global name 'WindowsError' is not defined
+>
+2017-04-16 21:07:12.476812
+global name 'WindowsError' is not defined
+>
+2017-04-16 21:14:31.267416
+expected int/long, numpy.float32 found
+>
