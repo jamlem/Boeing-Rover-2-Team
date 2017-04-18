@@ -13,13 +13,13 @@ except Exception as e:
     sys.exit()
 
 while 1:
-    #try:
+    try:
         server.open_rover_connection()  # opens the connection between the server and the interface
         server.start()  # starts handling client requests
         server.close_rover_connection()  # closes rover connection when the server stops
 
-    #except Exception as e:
-        #log.log_error(e)
-        #server.restart()
-        #pass
+    except Exception as e:
+        log.log_error(e)
+        server.restart()
+        pass
 
