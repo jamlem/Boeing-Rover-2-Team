@@ -51,7 +51,7 @@ class ServerHandler:
 
     # waits for a connection and handles requests when a client connects
     def start(self):
-        #try:
+        try:
             print(">> Waiting for connection")
             self.conn, self.address = self.socket.accept()  # accepts the incoming client request
             print('>> Connected with ' + self.address[0] + ':' + str(self.address[1]))
@@ -65,6 +65,10 @@ class ServerHandler:
                     raise e
         except OSError:#Unsure what type of error; raspi is not windows!
             # displays client disconnection and passes through to attempts a reconnect
+            print(">> Disconnected from " + self.address[0] + ':' + str(self.address[1]))
+            self.rover_connection.send_stop()
+            pass
+        except error.DataReceiveError:
             print(">> Disconnected from " + self.address[0] + ':' + str(self.address[1]))
             self.rover_connection.send_stop()
             pass
