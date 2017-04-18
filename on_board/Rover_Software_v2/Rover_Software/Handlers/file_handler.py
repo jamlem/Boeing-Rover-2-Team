@@ -46,8 +46,17 @@ def get_last_status():
 
 # logs an error object
 def log_error(e):
+    # print(str(e))
+    # log_text('./Logs/errors.txt', str(e))
+
+    import logging
+    log_filename = './Logs/errors.txt' # './Logs/errors.out'
+    # replace LOG_FILENAME if errors occur. Otherwise create initial file
+    logging.basicConfig(filename=log_filename, level=logging.DEBUG)
+    logging.debug('Test Message')
+    logging.exception(str(e))
+    log_text('./Logs/errors.txt', '')
     print(str(e))
-    log_text('./Logs/errors.txt', str(e))
 
 
 # logs list of commands sent to the rover
