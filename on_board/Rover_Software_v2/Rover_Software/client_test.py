@@ -17,18 +17,16 @@ PORT = 5555
 
 # creates a random command to be sent to the server
 def random_command():
-
-    data =  json.loads('{"MovementX": ' + str(random.randrange(0, 100)/100) + ',' +
-                      '"MovementY": ' + str(random.randrange(0, 100) / 100) + ',' +
-                      '"EStopStatus": ' + str(bool(random.getrandbits(1))) + ',' +
-                      '"allStop": ' + str(bool(random.getrandbits(1))) + ',' +
-                      '"HopperGrasp": ' + str(bool(random.getrandbits(1))) + ',' +
-                      '"HopperDown": ' + str(bool(random.getrandbits(1))) + '}')
+    coolStr = '{"MovementX": ' + str(random.randrange(0, 100)/100) + ',' + '"MovementY": ' + str(random.randrange(0, 100) / 100) + ',' + '"EStopStatus": ' + str(bool(random.getrandbits(1))).lower() + ',' + '"allStop": ' + str(bool(random.getrandbits(1))).lower() + ',' + '"HopperGrasp": ' + str(bool(random.getrandbits(1))).lower() + ',' + '"HopperDown": ' + str(bool(random.getrandbits(1))).lower() + '}'
+    print coolStr
+    data =  json.loads(coolStr)
     return data
+
 
 while 1:
     try:
         # attempts to connect to the given address and port
+        # test_obj = random_command()
         socket.connect((SERVER, PORT))
         reply = socket.recv(4096).decode()
         print("Last Rover Status : ")
@@ -38,8 +36,8 @@ while 1:
         while 1:
             # sets a predetermined example JSON object
             json_obj = random_command()
-            j = input('$- Press enter to send command >> ')
-            if j == 'quit':
+            j = raw_input('$- Press enter to send command >> ')
+            if str(j) == 'quit':
                 break
             # socket.send(j.encode())
             print("Sending : ")
@@ -50,7 +48,9 @@ while 1:
             print(json.dumps(json_obj))
             print("==================================")
             # receive and display the JSON object form the server
-            reply = socket.recv(4096).decode()
+            repdata = socket.recv(4096)
+            print len(repdata)
+            reply = repdata.decode()
             print("Rover Status : ")
             print("==================================")
             print(reply)
