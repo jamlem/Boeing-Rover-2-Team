@@ -11,7 +11,7 @@ class ServerHandler:
     def __init__(self):
         # sets the server address and listening port
         self.host = ''
-        self.port = 5555
+        self.port = 5558
         # creates a socket
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # binds the socket to specified host and port
