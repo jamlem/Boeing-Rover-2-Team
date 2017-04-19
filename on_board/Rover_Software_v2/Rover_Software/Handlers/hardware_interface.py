@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 #  Jeremy Lim
-#  3/20/17
+#  4/19/17
 #  A python class used to set manage serial connections & issue commands
 #  to the rover's arduino and servo controller for actuator control.
 
@@ -42,7 +42,7 @@ class HardwareInterface:
         self.hopper_open_micros = 1500
         self.hopper_close_micros = 1500
 
-        self.max_steer_angle = 30  # how far from 0 or steering angle can be (0+-max_steer_angle)
+        self.max_steer_angle = 60  # how far from 0 or steering angle can be (0+-max_steer_angle)
 
         self.max_motor_velocity = 1.0  # Constant for maximum allowed motor speed. cm/s. To be defined later.
 
@@ -86,33 +86,59 @@ class HardwareInterface:
             command_bytes.append(np.int8(4))  # Number of channels we're controlling
             command_bytes.append(np.int8(0))  # The start channel (the first one in this case)
 
-            # Servo 0: Steering servo
-            # Servo 1: Hopper lift servo
-            # Servo 2: Hopper Claw servo 1
-            # Servo 3: Hopper Claw servo 2
+            # Servo 0: Steering servo 1
+            # Servo 1: Steering servo 2
+            # Servo 2: Hopper lift servo 1
+            # Servo 3: Hopper lift servo 2
+            # Servo 4: Hopper Claw servo 1
+            # Servo 5: Hopper Claw servo 2
             steer_conversion = in_steer_servo / 90.0 * (self.servo_max - self.servo_mid) + self.servo_mid
 
             # list composition.
+            command_bytes = [np.int8(0x84), np.int8(0)]
             command_bytes += self.get_duty_cycle(steer_conversion)
+            pololu.write(bytearray(np.array(command_bytes)))# Servo 0
+
+            command_bytes = [np.int8(0x84), np.int8(1)]
+            command_bytes += self.get_duty_cycle(steer_conversion)
+            self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 1
+
+            hopper_cmd = []
 
             if in_hopper_up:  # true for lifted hopper
-                command_bytes += self.get_duty_cycle(self.hopper_up_micros)
+                hopper_cmd = self.get_duty_cycle(self.hopper_up_micros)
             else:
-                command_bytes += self.get_duty_cycle(self.hopper_down_micros)
+                hopper_cmd = self.get_duty_cycle(self.hopper_down_micros)
+
+            command_bytes = [np.int8(0x84), np.int8(2)]
+            command_bytes += hopper_cmd
+            self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 2
+
+            command_bytes = [np.int8(0x84), np.int8(3)]
+            command_bytes += hopper_cmd
+            self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 3
+
+            claw_cmd = []
 
             if in_hopper_grasp:  # true for closed grasper
-                command_bytes += self.get_duty_cycle(
+                claw_cmd += self.get_duty_cycle(
                     self.hopper_close_micros)  # these duty cycles will need adjustment.
-                command_bytes += self.get_duty_cycle(
+                claw_cmd += self.get_duty_cycle(
                     self.hopper_close_micros)  # these duty cycles will need adjustment.
             else:
-                command_bytes += self.get_duty_cycle(
+                claw_cmd += self.get_duty_cycle(
                     self.hopper_open_micros)  # these duty cycles will need adjustment.
-                command_bytes += self.get_duty_cycle(
+                claw_cmd += self.get_duty_cycle(
                     self.hopper_open_micros)  # these duty cycles will need adjustment.
 
-            write_bytes = bytearray(np.array(command_bytes))
-            self.pololu.write(write_bytes)
+            command_bytes = [np.int8(0x84), np.int8(4)]
+            command_bytes += claw_cmd
+            self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 4
+
+            command_bytes = [np.int8(0x84), np.int8(5)]
+            command_bytes += claw_cmd
+            self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 5
+
         else:
             # Non-open exception
             raise HardwareConnectError("Message send to Pololu; Serial comms not open.")
@@ -126,13 +152,13 @@ class HardwareInterface:
             #command_bytes = []
             #command_bytes.append(np.int8(0x32))  # magic number
             if in_stop_flag:
-            	command_bytes = struct.pack('!bb',0x32,0x2)
+                command_bytes = struct.pack('!bb', 0x32, 0x2)
                 #command_bytes.append(np.int8(0x2))  # E-stop command.
             elif in_reset_odometry_flag:
-            	command_bytes = struct.pack('!bb',0x32,0x1)
+                command_bytes = struct.pack('!bb', 0x32, 0x1)
                 #command_bytes.append(np.int8(0x1))  # Signal to reset odometry.
             else:
-            	command_bytes = struct.pack('!bbff',0x32,0x0,in_left_mot,in_right_mot)
+                command_bytes = struct.pack('!bbff', 0x32, 0x0, in_left_mot, in_right_mot)
                 #left_float = socket.htonl(
                     #np.float32(in_left_mot))  # using network byte order for transmission; keep consistency.
                 #right_float = socket.htonl(np.float32(in_right_mot))

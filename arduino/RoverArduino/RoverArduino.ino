@@ -4,6 +4,7 @@
 //For comm testing, send the E-stop command to turn on LED 13, and reset wheel odometry to turn off LED13
 //Boeing Capstone 2 team.
 
+
 #define MAGIC_NUM 0x32  //Used as the first byte of every valid message.
 
 
@@ -11,8 +12,8 @@
 
 #define BATTERY_PIN A0  //analog pin used to read battery voltage.
 //Encoder pin pairs:
-//Encoder 1: 8 and 3
-//Encoder 2: 9 and 4
+//Encoder 1: 8 and 3//Right motor
+//Encoder 2: 9 and 4//Left Motor
 //Encoder 3: 10 and 5
 //Encoder 4: 11 and 6
 
@@ -59,12 +60,16 @@ byte  statusByte;
 float commandLeft;
 float commandRight;
 
+//Global variable; used to keep track of the previous motor speed update time.
+long prevTime;
+
 //Physical constants
 const float batteryVoltageConversion = 1.0;//Arbitrary for now.
 
 void setup()
 {
   //Set up the baudrate. 8N1
+  prevTime = millis();
   Serial.begin(115200);
   
   //Set the pin modes for reading from the encoder.
@@ -75,8 +80,8 @@ void setup()
   pinMode(9,INPUT);
   
   //initialize variables.
-  e1 = 0;
-  e2 = 0;
+  e1 = 0;//Right
+  e2 = 0;//Left
   
   commandLeft = 0;
   commandRight = 0;
@@ -187,7 +192,9 @@ void loop()
   
   //Update motor velocities.
   //If performance issues occure, we will
-  updateMotorSpeeds(prog_delay);
+  float time_delay = (millis() - prevTime)/1000.0;
+  updateMotorSpeeds(time_delay);
+  prevTime = millis();
  
   
   //Read any possible command updates.
@@ -195,12 +202,12 @@ void loop()
   checkForCommand();
   updateMotorCommands(commandLeft, commandRight);
   
- 
+  
   //Update the raspberry pi on the status.
   //This is completely asynchronous with recieving commands.
   //May need to decrease this frequency.
-  sendStatusUpdate();
-  delay(10);//Main program runs every 10ms.
+  //sendStatusUpdate();
+  delay(40);//Main program runs every 10ms.
 }
 
 //Handle's the arduino sending a status command back to the raspberry pi
@@ -268,7 +275,7 @@ void checkForCommand()
     displacementAngular = 0.0;
     //turn off pin 13 LED
     pinMode(13,OUTPUT);
-    digitalWrite(13,HIGH);
+    digitalWrite(13,LOW);
   }
   else if(current == 0x2)
   {
@@ -284,7 +291,8 @@ void checkForCommand()
     return;//invalid command.
   }
   
-  
+  //Send a response, after a valid command.
+  sendStatusUpdate();
 }
 
 //Takes a 4-byte float at the given location, and 
