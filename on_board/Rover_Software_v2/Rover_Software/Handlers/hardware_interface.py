@@ -39,12 +39,13 @@ class HardwareInterface:
         self.hopper_up_micros = 1500
         self.hopper_down_micros = 1500
 
-        self.hopper_open_micros = 1500
+        self.hopper_open_right_micros = 600 
+        self.hopper_open_left_micros = 2400
         self.hopper_close_micros = 1500
 
-        self.max_steer_angle = 60  # how far from 0 or steering angle can be (0+-max_steer_angle)
+        self.max_steer_angle = 60.0  # how far from 0 or steering angle can be (0+-max_steer_angle).
 
-        self.max_motor_velocity = 1.0  # Constant for maximum allowed motor speed. cm/s. To be defined later.
+        self.max_motor_velocity = 10.0  # Constant for maximum allowed motor speed. cm/s. To be defined later.
 
         # servo angle mapping:
         # (duty cycle in microseconds)
@@ -56,8 +57,8 @@ class HardwareInterface:
         self.servo_min = 600
 
         # Physical constants of the rover (length, width, etc.
-        self.drive_wheel_width = 1.0  # in cm
-        self.chassis_wheel_length = 1.0  # in cm
+        self.drive_wheel_width = 43.0  # in cm
+        self.chassis_wheel_length = 34.0  # in cm
 
         # Initiates attributes for later use
         self.arduino = None
@@ -86,18 +87,18 @@ class HardwareInterface:
             command_bytes.append(np.int8(4))  # Number of channels we're controlling
             command_bytes.append(np.int8(0))  # The start channel (the first one in this case)
 
-            # Servo 0: Steering servo 1
-            # Servo 1: Steering servo 2
-            # Servo 2: Hopper lift servo 1
-            # Servo 3: Hopper lift servo 2
-            # Servo 4: Hopper Claw servo 1
-            # Servo 5: Hopper Claw servo 2
-            steer_conversion = in_steer_servo / 90.0 * (self.servo_max - self.servo_mid) + self.servo_mid
+            # Servo 0: Steering servo 1 # Right steering
+            # Servo 1: Steering servo 2 # Left steering
+            # Servo 2: Hopper lift servo 1 #right servo
+            # Servo 3: Hopper lift servo 2 # left servo
+            # Servo 4: Hopper Claw servo 1 # Right claw
+            # Servo 5: Hopper Claw servo 2 # Left claw
+            steer_conversion = -in_steer_servo / 90.0 * (self.servo_max - self.servo_mid) + self.servo_mid
 
             # list composition.
             command_bytes = [np.int8(0x84), np.int8(0)]
             command_bytes += self.get_duty_cycle(steer_conversion)
-            pololu.write(bytearray(np.array(command_bytes)))# Servo 0
+            self.pololu.write(bytearray(np.array(command_bytes)))# Servo 0
 
             command_bytes = [np.int8(0x84), np.int8(1)]
             command_bytes += self.get_duty_cycle(steer_conversion)
@@ -118,26 +119,29 @@ class HardwareInterface:
             command_bytes += hopper_cmd
             self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 3
 
-            claw_cmd = []
-
             if in_hopper_grasp:  # true for closed grasper
-                claw_cmd += self.get_duty_cycle(
-                    self.hopper_close_micros)  # these duty cycles will need adjustment.
-                claw_cmd += self.get_duty_cycle(
-                    self.hopper_close_micros)  # these duty cycles will need adjustment.
-            else:
-                claw_cmd += self.get_duty_cycle(
-                    self.hopper_open_micros)  # these duty cycles will need adjustment.
-                claw_cmd += self.get_duty_cycle(
-                    self.hopper_open_micros)  # these duty cycles will need adjustment.
+                claw_cmd = self.get_duty_cycle(
+                    self.hopper_close_micros)  
 
-            command_bytes = [np.int8(0x84), np.int8(4)]
-            command_bytes += claw_cmd
-            self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 4
+                command_bytes = [np.int8(0x84), np.int8(4)]
+                command_bytes += claw_cmd
+                self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 4
 
-            command_bytes = [np.int8(0x84), np.int8(5)]
-            command_bytes += claw_cmd
-            self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 5
+                command_bytes = [np.int8(0x84), np.int8(5)]
+                command_bytes += claw_cmd
+                self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 5
+
+            else:                #Open grasper
+
+                command_bytes = [np.int8(0x84), np.int8(4)]
+                command_bytes += self.get_duty_cycle(
+                    self.hopper_open_right_micros)
+                self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 4
+
+                command_bytes = [np.int8(0x84), np.int8(5)]
+                command_bytes += self.get_duty_cycle(
+                    self.hopper_open_left_micros)
+                self.pololu.write(bytearray(np.array(command_bytes)))  # Servo 5
 
         else:
             # Non-open exception
@@ -225,6 +229,12 @@ class HardwareInterface:
             # throw an exception if we haven't opened our connections.
             raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
 
+        motor_vel = in_velocity
+        if in_velocity > self.max_motor_velocity:
+            motor_vel = self.max_motor_velocity
+        elif in_velocity < -self.max_motor_velocity:
+            motor_vel = -self.max_motor_velocity
+
         # update internal state
         if in_steer_angle > self.max_steer_angle:
             self.steer_angle = self.max_steer_angle
@@ -240,7 +250,7 @@ class HardwareInterface:
             elif self.steer_angle < 0.0:
                 turn_radius = self.chassis_wheel_length * math.tan(math.pi / 2.0 + self.steer_angle / 180.0 * math.pi)
             # find the desired angular velocity
-            omega = in_velocity / turn_radius
+            omega = motor_vel / turn_radius
             #  See if this angular velocity is possible with our max wheel velocity.
 
             #  assign wheel velocities as needed.
@@ -252,8 +262,8 @@ class HardwareInterface:
                 self.right_motor = -omega * (abs(turn_radius) - self.drive_wheel_width / 2.0)
 
         else:  # straight forward/backward
-            self.right_motor = 0.0
-            self.left_motor = 0.0
+            self.right_motor = motor_vel
+            self.left_motor = motor_vel
 
         self.hopper_up = in_hopper_up
         self.hopper_close = in_hopper_grasp
@@ -277,7 +287,7 @@ class HardwareInterface:
         #  only check status if the connection is open.
         if self.is_open:
             msg_buffer = self.arduino.read(
-                37)  # read some bytes from the arduino. It's response is 37 bytes in length.
+                38)  # read some bytes from the arduino. It's response is 37 bytes in length.
             if msg_buffer[0] == 0x32:  # first number is correct, then parse the message.
                 msg_buffer = np.array(msg_buffer)  # convert into np array
 
