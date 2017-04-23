@@ -1,1 +1,105 @@
+        //Method that converts degrees to Radians
+        double con_Deg_to_Rad(double deg)
+        {
+            double radians = (deg * PI) / 180;
+            return radians;
+        }
+    
+    
+        //Method that converts Radians to degrees
+        double con_Rad_to_Deg(double rad)
+        {
+            double degrees = (rad * 180) / PI;
+            return degrees;
+        }
+        /////////////////////////////////////////////////////////////////////////
+        //This values updated by whatever is measuring them
+        /////////////////////////////////////////////////////////////////////////////
+        //Velocity value
+        double velocity = 0.7;
+        //Length of the vehicle from the front of the vehicle to the centre of gravity point of the vehicle
+        double L_Front = 0.7;
+        //Length of the vehicle from the rear of the vehicle to the centre of gravity point of the vehicle
+        double L_Rear = 0.7;
+        //Steering angle of the rear wheeels
+        double Steering_Rear = con_Deg_to_Rad(50);
+        //Steering angle of the front wheeels
+        double Steering_Front = con_Deg_to_Rad(0);
+    //////////////////////////////////////////////////////////////////////////////////////////
+        
+        //This arrays store values
+        double velArray[2000];
+        double steerArray[2000];
 
+        
+        //////////////////////////////////////////////////////////////////////////////////////
+        //This values are updated by the methods below
+        ////////////////////////////////////////////////////////////////
+        //Heading or Orientation of the vehicle
+        double Yaw_Angle = 0;
+        //////Position values////////////////////////////////////
+        double X_Coordinate = 0;
+        double Y_Coordinate = 0;
+        //Slip angle of the vehicle when it turns
+        double Slip_Angle = 0;
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        
+    ///////////////////////////////////////////////////////////////////////////////
+
+void setup() {
+  // put your setup code here, to run once:
+#include <math.h> 
+#include <stdio.h>
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
+//This meethod is for keeping track of the position and other values..
+//It also records the steering angles and velocity in order to use them to get the rover home..
+void Cal_Pos()
+    {
+      
+                int count = 0;
+                velArray[count] = velocity * -1;
+                steerArray[count] = Steering_Front * -1;
+               
+                ///////// Calculating the Slip angle /////////
+                double answer_slip1 = ((L_Front * tan(Steering_Rear)) + (L_Rear * tan(Steering_Front)));
+                double answer_slip2 = answer_slip1 / (L_Front + L_Rear);
+                Slip_Angle = atan(answer_slip2);
+                /////////Calculating the Yaw Angle///////////
+
+                double answer_Yaw1 = velocity * cos(Slip_Angle);
+                double answer_Yaw2 = L_Front + L_Rear;
+                double answer_Yaw3 = answer_Yaw1 / answer_Yaw2;
+                double answer_Yaw4 = tan(Steering_Front) - tan(Steering_Rear);
+                double answer_Yaw5 = answer_Yaw3 * answer_Yaw4;
+                Yaw_Angle = Yaw_Angle + answer_Yaw5;
+                //////// X-coordintaes//////////////
+                double answer1 = velocity * cos(Yaw_Angle + Slip_Angle);
+                X_Coordinate = X_Coordinate + answer1;
+                /////// Y-coordinates ///////////////
+                double answer2 = velocity * sin(Yaw_Angle + Slip_Angle);
+                Y_Coordinate = Y_Coordinate + answer2;
+
+                count++;
+            
+    }
+
+    //Method to take the rover home
+          //Remember the rover is gonna be travelling in reverse when returning home
+    void Take_Rover_Home()
+    {
+      //You the set the steering angle to zero....
+
+      Steering_Front = 0;
+            for (int i = sizeof(steerArray) / sizeof(steerArray[0]); i >= 0; i--)
+            {
+              //you then use this values to instruct the motors.
+             double steering_angle = steerArray[i];
+             double return_velocity  = velArray[i];                
+            }
+    }
