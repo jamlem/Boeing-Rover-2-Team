@@ -88,6 +88,8 @@ class ServerHandler:
         print(json.dumps(command.to_json()))
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
+        print command.velocity
+
         # sends the command to the interface
         try:
             command.send(self.rover_connection)

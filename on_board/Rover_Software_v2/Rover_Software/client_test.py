@@ -12,7 +12,7 @@ socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # sets the address and port nr of the server
 # 'localhost'
 SERVER = '127.0.0.1'
-PORT = 5555
+PORT = 5558
 
 
 # creates a random command to be sent to the server
@@ -22,6 +22,12 @@ def random_command():
     data =  json.loads(coolStr)
     return data
 
+
+def fixed_command():
+    coolStr = '{"MovementX": ' + str(-25.0) + ',' + '"MovementY": ' + str(-20.0) + ',' + '"EStopStatus": false, ' + '"allStop": false, ' + '"HopperGrasp": false,' + '"HopperDown": false }'
+    print coolStr
+    data =  json.loads(coolStr)
+    return data
 
 while 1:
     try:
@@ -35,7 +41,7 @@ while 1:
         print("==================================")
         while 1:
             # sets a predetermined example JSON object
-            json_obj = random_command()
+            json_obj = fixed_command()
             j = raw_input('$- Press enter to send command >> ')
             if str(j) == 'quit':
                 break

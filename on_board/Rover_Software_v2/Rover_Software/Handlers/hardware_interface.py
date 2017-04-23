@@ -93,7 +93,7 @@ class HardwareInterface:
             # Servo 3: Hopper lift servo 2 # left servo
             # Servo 4: Hopper Claw servo 1 # Right claw
             # Servo 5: Hopper Claw servo 2 # Left claw
-            steer_conversion = -in_steer_servo / 90.0 * (self.servo_max - self.servo_mid) + self.servo_mid
+            steer_conversion = in_steer_servo / 90.0 * (self.servo_max - self.servo_mid) + self.servo_mid
 
             # list composition.
             command_bytes = [np.int8(0x84), np.int8(0)]
@@ -244,22 +244,31 @@ class HardwareInterface:
             self.steer_angle = in_steer_angle
         # calculate motor velocities from the steering angle and our linear velocity.
         if self.steer_angle != 0:
-            turn_radius = self.chassis_wheel_length * math.tan(math.pi / 2.0 + self.steer_angle / 180.0 * math.pi)
-            if self.steer_angle > 0.0:
-                turn_radius = -self.chassis_wheel_length * math.tan(math.pi / 2.0 + self.steer_angle / 180.0 * math.pi)
-            elif self.steer_angle < 0.0:
-                turn_radius = self.chassis_wheel_length * math.tan(math.pi / 2.0 + self.steer_angle / 180.0 * math.pi)
+            #turn_radius = self.chassis_wheel_length * math.tan(math.pi / 2.0 + self.steer_angle / 180.0 * math.pi)
+            #if self.steer_angle > 0.0:
+                #turn_radius = -self.chassis_wheel_length * math.tan(self.steer_angle / 180.0 * math.pi)
+            #elif self.steer_angle < 0.0:
+            turn_radius = self.chassis_wheel_length * math.tan((math.pi/2.0) + abs(self.steer_angle / 180.0 * math.pi))
             # find the desired angular velocity
-            omega = motor_vel / turn_radius
+            omega = motor_vel / -turn_radius
             #  See if this angular velocity is possible with our max wheel velocity.
 
             #  assign wheel velocities as needed.
-            if in_velocity > 0.0:
-                self.left_motor = omega * (abs(turn_radius) + self.drive_wheel_width / 2.0)
-                self.right_motor = omega * (abs(turn_radius) - self.drive_wheel_width / 2.0)
+            if motor_vel > 0.0:
+		if omega > 0.0:
+               	    self.left_motor = omega * (abs(turn_radius) - self.drive_wheel_width / 2.0)
+                    self.right_motor = omega * (abs(turn_radius) + self.drive_wheel_width / 2.0)
+                else:
+               	    self.left_motor = -omega * (abs(turn_radius) + self.drive_wheel_width / 2.0)
+                    self.right_motor = -omega * (abs(turn_radius) - self.drive_wheel_width / 2.0)
             else:
-                self.left_motor = -omega * (abs(turn_radius) + self.drive_wheel_width / 2.0)
-                self.right_motor = -omega * (abs(turn_radius) - self.drive_wheel_width / 2.0)
+                if omega > 0.0:
+                    self.left_motor = -omega * (abs(turn_radius) - self.drive_wheel_width / 2.0)
+                    self.right_motor = -omega * (abs(turn_radius) + self.drive_wheel_width / 2.0)
+                else:
+                    self.left_motor = omega * (abs(turn_radius) + self.drive_wheel_width / 2.0)
+                    self.right_motor = omega * (abs(turn_radius) - self.drive_wheel_width / 2.0)
+                    
 
         else:  # straight forward/backward
             self.right_motor = motor_vel
