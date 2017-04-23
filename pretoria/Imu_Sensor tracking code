@@ -1,0 +1,104 @@
+import math
+
+
+#   IMU sensor
+# Global Variables
+#  initial velocity of the vehicle
+class ImuSensor:
+    def __init__(self, initial_val=0, imu_time=0.25, position_x=0, position_y=0, degree_val=0, gyro_val1=0,
+                 i_displacement=None):
+
+        self.initial_val = initial_val
+        self.imu_time = imu_time
+        # Note this has been set to 0.25 seconds because
+        # the sensor will trasmit the data every 0.25..(It can be changed)
+        self. position_x = position_x
+        self.position_y = position_y
+        # Orientation of the vehicle
+        self.degree_val = degree_val
+        self.gyro_val1 = gyro_val1
+        self.i_displacement = i_displacement
+
+
+    # Calculates the accelaration of the vehicle
+    # The x and y values on the method will come from the IMU
+    def imu_acc(self, x_value_acc, y_value_acc):
+        # Input data from the sensor is given "g" 21.93
+        # Assumption is that the range is +-2g and the sensitivity  is 16384
+        gyro_sensitivity = 16384
+        acc_val = (x_value_acc * x_value_acc) + (y_value_acc * y_value_acc)
+        acc_val1 = math.pow(acc_val, 0.5)
+        acc_val1 *= 9.8
+
+        if y_value_acc < 0:
+            acc_val1 *= -1
+
+        return acc_val1
+
+    # Calculates the orietation of the vehicle
+    # The Z value on the method will come from the IMU
+    def imu_gyro(self, z_value_gyro):
+        # Assumption is that the range +-250 degrees and sensitivity is 131.
+        gyro_sensitivity = 131
+        self.gyro_val1 = z_value_gyro / gyro_sensitivity
+        gyro_val2 = self.gyro_val1 * 0.25
+        if gyro_val2 < 0:
+            gyro_val2 += 360
+        self.degree_val += gyro_val2
+        if self.degree_val > 360:
+            self.degree_val -= 360
+
+    # Converts Degrees to Radians
+    def con_deg_to_rad(self, deg):
+        return deg * (math.pi / 180)
+
+    # Converts Radians to Degrees
+    def con_rad_to_deg(self, rad):
+        return rad * (180 / math.pi)
+
+    # Method that calculates the final position and orientation of the vehicle.
+    def imu_final(self):
+        accelaration_value = self.imu_acc()
+        self.imu_gyro()
+        final_velocity = self.initial_val + (accelaration_value * self.imu_time)
+        self.i_displacement = (self.initial_val * self.imu_time) + (0.5 * accelaration_value * math.pow(self.imu_time, 2))
+        self.initial_val = final_velocity
+
+        if self.degree_val == 0 or self.degree_val == 360:
+            self.position_x += self.i_displacement
+
+        if 0 < self.degree_val < 90:
+            self.degree_val = self.con_deg_to_rad(self.degree_val)
+            self.position_x += (self.i_displacement * math.cos(self.degree_val))
+            self.position_y += (self.i_displacement * math.sin(self.degree_val))
+            self.degree_val = self.con_rad_to_deg(self.degree_val)
+
+        if self.degree_val == 90:
+            self.position_y += self.i_displacement
+
+        if 180 > self.degree_val > 90:
+            self.degree_val = 180 - self.degree_val
+            self.degree_val = self.con_deg_to_rad(self.degree_val)
+            self.position_x += (-self.i_displacement * math.sin(self.degree_val))
+            self.position_y += (self.i_displacement * math.cos(self.degree_val))
+            self.degree_val = self.con_rad_to_deg(self.degree_val)
+
+        if self.degree_val == 180:
+            self.position_x += (-self.i_displacement)
+
+        if 270 > self.degree_val > 180:
+            self.degree_val = 270 - self.degree_val
+            self.degree_val = self.con_deg_to_rad(self.degree_val)
+            self.position_x += (-self.i_displacement * math.cos(self.degree_val))
+            self.position_y += (-self.i_displacement * math.sin(self.degree_val))
+            self.degree_val = self.con_rad_to_deg(self.degree_val)
+
+        if self.degree_val == 270:
+            self.position_y += (-self.i_displacement)
+
+        if 360 > self.degree_val > 270:
+            self.degree_val = 360 - self.degree_val
+            self.degree_val = self.con_deg_to_rad(self.degree_val)
+            self.position_x += (self.i_displacement * math.sin(self.degree_val))
+            self.position_y += (-self.i_displacement * math.cos(self.degree_val))
+            self.degree_val = self.con_rad_to_deg(self.degree_val)
