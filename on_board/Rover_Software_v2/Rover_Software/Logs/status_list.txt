@@ -1,0 +1,123 @@
+2017-04-24 06:12:59.382127
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:24.578695
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:25.756827
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:26.711364
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:27.614765
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:28.578326
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:29.419562
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:30.213673
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:30.929576
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:14:31.610386
+{"ir_elevation": 0, "y_pos": 0, "is_valid": false, "battery_volt": 0, "heading": 0, "left_velocity": 0, "right_velocity": 0, "x_pos": 0, "ir_heading": 0}
+>
+2017-04-24 06:17:59.342313
+{"battery_volt": 42, "ir_heading": 198.00000000000003, "x_pos": 6, "heading": 72.0, "ir_elevation": 10, "left_velocity": 0.77, "y_pos": 72, "is_valid": true, "right_velocity": 0.44}
+>
+2017-04-24 06:18:40.368360
+{"battery_volt": 8, "ir_heading": 122.4, "x_pos": 45, "heading": 306.0, "ir_elevation": 32, "left_velocity": 0.34, "y_pos": 67, "is_valid": true, "right_velocity": 0.46}
+>
+2017-04-24 06:18:42.026767
+{"battery_volt": 10, "ir_heading": 28.8, "x_pos": 1, "heading": 169.2, "ir_elevation": 93, "left_velocity": 0.7, "y_pos": 54, "is_valid": true, "right_velocity": 0.87}
+>
+2017-04-24 06:18:42.732645
+{"battery_volt": 93, "ir_heading": 39.6, "x_pos": 95, "heading": 32.4, "ir_elevation": 79, "left_velocity": 0.76, "y_pos": 89, "is_valid": true, "right_velocity": 0.55}
+>
+2017-04-24 06:18:43.472611
+{"battery_volt": 54, "ir_heading": 104.39999999999999, "x_pos": 47, "heading": 205.2, "ir_elevation": 21, "left_velocity": 0.14, "y_pos": 37, "is_valid": true, "right_velocity": 0.27}
+>
+2017-04-24 06:18:44.753014
+{"battery_volt": 55, "ir_heading": 277.2, "x_pos": 80, "heading": 3.6, "ir_elevation": 70, "left_velocity": 0.63, "y_pos": 12, "is_valid": true, "right_velocity": 0.53}
+>
+2017-04-24 06:18:45.528074
+{"battery_volt": 60, "ir_heading": 0.0, "x_pos": 0, "heading": 352.8, "ir_elevation": 34, "left_velocity": 0.02, "y_pos": 48, "is_valid": true, "right_velocity": 0.37}
+>
+2017-04-24 06:18:46.158751
+{"battery_volt": 49, "ir_heading": 125.99999999999999, "x_pos": 71, "heading": 212.39999999999998, "ir_elevation": 22, "left_velocity": 0.79, "y_pos": 42, "is_valid": true, "right_velocity": 0.78}
+>
+2017-04-24 06:18:47.152392
+{"battery_volt": 97, "ir_heading": 90.0, "x_pos": 71, "heading": 334.8, "ir_elevation": 80, "left_velocity": 0.42, "y_pos": 19, "is_valid": true, "right_velocity": 0.07}
+>
+2017-04-24 06:18:47.828188
+{"battery_volt": 74, "ir_heading": 154.8, "x_pos": 94, "heading": 154.8, "ir_elevation": 55, "left_velocity": 0.59, "y_pos": 35, "is_valid": true, "right_velocity": 0.54}
+>
+2017-04-24 06:18:48.385670
+{"battery_volt": 3, "ir_heading": 133.2, "x_pos": 46, "heading": 320.4, "ir_elevation": 53, "left_velocity": 0.8, "y_pos": 43, "is_valid": true, "right_velocity": 0.35}
+>
+2017-04-24 06:18:48.900037
+{"battery_volt": 43, "ir_heading": 122.4, "x_pos": 48, "heading": 61.2, "ir_elevation": 45, "left_velocity": 0.43, "y_pos": 10, "is_valid": true, "right_velocity": 0.5}
+>
+2017-04-24 06:18:49.461530
+{"battery_volt": 76, "ir_heading": 86.39999999999999, "x_pos": 14, "heading": 61.2, "ir_elevation": 41, "left_velocity": 0.35, "y_pos": 35, "is_valid": true, "right_velocity": 0.83}
+>
+2017-04-24 06:18:50.008985
+{"battery_volt": 64, "ir_heading": 0.0, "x_pos": 62, "heading": 0.0, "ir_elevation": 88, "left_velocity": 0.47, "y_pos": 56, "is_valid": true, "right_velocity": 0.26}
+>
+2017-04-24 06:18:50.571480
+{"battery_volt": 26, "ir_heading": 133.2, "x_pos": 49, "heading": 46.800000000000004, "ir_elevation": 55, "left_velocity": 0.6, "y_pos": 19, "is_valid": true, "right_velocity": 0.43}
+>
+2017-04-24 06:18:51.099884
+{"battery_volt": 21, "ir_heading": 68.4, "x_pos": 44, "heading": 93.60000000000001, "ir_elevation": 84, "left_velocity": 0.13, "y_pos": 38, "is_valid": true, "right_velocity": 0.82}
+>
+2017-04-24 06:18:51.569131
+{"battery_volt": 6, "ir_heading": 172.79999999999998, "x_pos": 40, "heading": 140.4, "ir_elevation": 67, "left_velocity": 0.17, "y_pos": 92, "is_valid": true, "right_velocity": 0.24}
+>
+2017-04-24 06:18:52.012310
+{"battery_volt": 5, "ir_heading": 125.99999999999999, "x_pos": 74, "heading": 324.0, "ir_elevation": 21, "left_velocity": 0.6, "y_pos": 78, "is_valid": true, "right_velocity": 0.07}
+>
+2017-04-24 06:18:52.398335
+{"battery_volt": 1, "ir_heading": 18.0, "x_pos": 86, "heading": 277.2, "ir_elevation": 39, "left_velocity": 0.2, "y_pos": 88, "is_valid": true, "right_velocity": 0.3}
+>
+2017-04-24 06:18:52.782356
+{"battery_volt": 39, "ir_heading": 302.4, "x_pos": 93, "heading": 288.0, "ir_elevation": 93, "left_velocity": 0.61, "y_pos": 91, "is_valid": true, "right_velocity": 0.63}
+>
+2017-04-24 06:18:53.174399
+{"battery_volt": 9, "ir_heading": 313.2, "x_pos": 39, "heading": 122.4, "ir_elevation": 55, "left_velocity": 0.39, "y_pos": 23, "is_valid": true, "right_velocity": 0.6}
+>
+2017-04-24 06:18:53.561427
+{"battery_volt": 45, "ir_heading": 90.0, "x_pos": 63, "heading": 64.8, "ir_elevation": 63, "left_velocity": 0.66, "y_pos": 79, "is_valid": true, "right_velocity": 0.11}
+>
+2017-04-24 06:18:53.962493
+{"battery_volt": 41, "ir_heading": 90.0, "x_pos": 63, "heading": 223.2, "ir_elevation": 73, "left_velocity": 0.37, "y_pos": 30, "is_valid": true, "right_velocity": 0.8}
+>
+2017-04-24 06:18:54.354535
+{"battery_volt": 46, "ir_heading": 136.8, "x_pos": 95, "heading": 298.8, "ir_elevation": 15, "left_velocity": 0.91, "y_pos": 49, "is_valid": true, "right_velocity": 0.32}
+>
+2017-04-24 06:18:54.737553
+{"battery_volt": 19, "ir_heading": 259.2, "x_pos": 64, "heading": 205.2, "ir_elevation": 90, "left_velocity": 0.15, "y_pos": 1, "is_valid": true, "right_velocity": 0.31}
+>
+2017-04-24 06:18:55.111547
+{"battery_volt": 45, "ir_heading": 212.39999999999998, "x_pos": 1, "heading": 273.6, "ir_elevation": 78, "left_velocity": 0.99, "y_pos": 21, "is_valid": true, "right_velocity": 0.33}
+>
+2017-04-24 06:18:55.503590
+{"battery_volt": 51, "ir_heading": 72.0, "x_pos": 24, "heading": 104.39999999999999, "ir_elevation": 93, "left_velocity": 0.09, "y_pos": 28, "is_valid": true, "right_velocity": 0.02}
+>
+2017-04-24 06:18:55.874576
+{"battery_volt": 62, "ir_heading": 115.2, "x_pos": 6, "heading": 327.6, "ir_elevation": 23, "left_velocity": 0.27, "y_pos": 77, "is_valid": true, "right_velocity": 0.13}
+>
+2017-04-24 06:18:56.221497
+{"battery_volt": 13, "ir_heading": 338.4, "x_pos": 24, "heading": 262.8, "ir_elevation": 83, "left_velocity": 0.77, "y_pos": 19, "is_valid": true, "right_velocity": 0.17}
+>
+2017-04-24 06:18:56.609529
+{"battery_volt": 35, "ir_heading": 324.0, "x_pos": 86, "heading": 309.6, "ir_elevation": 48, "left_velocity": 0.27, "y_pos": 88, "is_valid": true, "right_velocity": 0.38}
+>
+2017-04-24 06:18:57.078776
+{"battery_volt": 62, "ir_heading": 201.60000000000002, "x_pos": 27, "heading": 201.60000000000002, "ir_elevation": 66, "left_velocity": 0.33, "y_pos": 62, "is_valid": true, "right_velocity": 0.98}
+>

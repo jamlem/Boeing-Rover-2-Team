@@ -79971,3 +79971,223 @@ MessageError
 2017-04-23 18:06:13.827810
 
 >
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:12:59.374106
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:12:59.380122
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:24.572680
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:24.576690
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:25.750812
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:25.754822
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:26.705349
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:26.710362
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:27.607747
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:27.612760
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:28.572311
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:28.576321
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:29.414549
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:29.418560
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:30.207658
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:30.212670
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:30.923560
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:30.927571
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message send to Arduino & Pololu; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_command.py", line 52, in send
+    conn.send_rover_command(self.angle, self.velocity, self.hopper_grasp, self.hopper_up)
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 88, in send_rover_command
+    raise HardwareConnectError("Message send to Arduino & Pololu; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message send to Arduino & Pololu; Serial comms not open.
+2017-04-24 06:14:31.604370
+
+>
+DEBUG:root:Test Message
+ERROR:root:Message request of Arduino; Serial comms not open.
+Traceback (most recent call last):
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Rover_Classes\rover_status.py", line 66, in get_status
+    self.ir_elevation = conn.check_rover_status()
+  File "C:\Users\van Heerden\Documents\_IT\GIt\Boeing-Rover-2-Team\on_board\Rover_Software_v2\Rover_Software\Handlers\test_interface.py", line 199, in check_rover_status
+    raise HardwareConnectError("Message request of Arduino; Serial comms not open.")
+Rover_Classes.rover_exceptions.HardwareConnectError: Message request of Arduino; Serial comms not open.
+2017-04-24 06:14:31.608381
+
+>
