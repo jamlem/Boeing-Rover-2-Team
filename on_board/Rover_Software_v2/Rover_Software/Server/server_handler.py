@@ -86,9 +86,8 @@ class ServerHandler:
         print(">> Data Received: ")
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         print(json.dumps(command.to_json()))
+        print(">> Velocity: " + str(command.velocity))
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-
-        print command.velocity
 
         # sends the command to the interface
         try:
